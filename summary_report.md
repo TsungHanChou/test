@@ -4,7 +4,11 @@ We report the summary statistics of the sample data. According to the table, we 
 
 ```python
 import polars as pl
-summary = pl.read_csv('data.csv').describe()
+tm_convey = (
+  pl.scan_csv('data.csv',
+              separator=',', infer_schema_length=10000)
+)
+summary = tm_convey.collect().describe()
 summary.write_csv('summary.csv')
 ```
 
